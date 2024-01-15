@@ -1,18 +1,23 @@
+// Importing necessary React hooks and a custom local storage hook
+
 import { createContext, useEffect, useReducer, useState } from 'react';
 import { useLocalStorage } from '../hooks/use-local-storage';
 
+// Type definition for individual form fields
 type Field = {
   value: string;
   hasError: boolean;
   errorMessage: string;
 }
 
+// Initial state for form fields
 const initialState = {
   value: '',
   hasError: false,
   errorMessage: ''
 }
 
+// Defining the structure of the context's data
 type FormContextData = {
   nameField: Field;
   dispatchNameField: React.Dispatch<any>;
@@ -29,6 +34,7 @@ type FormContextData = {
   clearForm: () => void;
 }
 
+// Creating a context for the form with initial values
 export const FormContext = createContext({
   nameField: initialState,
   dispatchNameField: () => {},
@@ -45,12 +51,14 @@ export const FormContext = createContext({
   clearForm: () => {}
 } as FormContextData);
 
+// Defining action types for the reducer function
 export const ACTIONS = {
   SET_VALUE: 'SET_VALUE',
   SET_ERROR: 'SET_ERROR',
   CLEAR_ERROR: 'CLEAR_ERROR'
 }
 
+// Reducer function to manage state of individual form fields
 function handleFormState(
   state: Field,
   action: any
@@ -80,30 +88,36 @@ function handleFormState(
   }
 }
 
+// Type definition for a plan (e.g., subscription plan)
 export type Plan = {
   name: string;
   price: number
 }
 
+// Interface for props passed to FormProvider component
 interface FormProviderProps {
   children: React.ReactNode;
 }
 
+// FormProvider component, providing context to its children
 export const FormProvider = ({ children }: FormProviderProps) => {
   // Your Info
   const [nameField, dispatchNameField] = useReducer(handleFormState, initialState)
   const [emailField, dispatchEmailField] = useReducer(handleFormState, initialState)
   const [phoneNumberField, dispatchPhoneNumberField] = useReducer(handleFormState, initialState)
 
-  // Plan
+  // States for managing the subscription plan
   const [isYearly, setIsYearly] = useState<boolean>(false);
   const [selectedPlan, setSelectedPlan] = useState<Plan>(null as any);
 
-  // Add Ons
+  // State for managing additional options or services
   const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([]);
 
+    // Utilizing custom local storage hook for persisting and retrieving data
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
 
+
+  // Function to clear all form fields and reset state
   function clearForm() {
     removeValueFromLocalStorage('your-info')
     removeValueFromLocalStorage('plan')
@@ -117,6 +131,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     setAddOns([])
   }
 
+    // useEffect hook to initialize form fields from local storage upon component mount
   useEffect(() => {
     const yourInfoFromLocalStorage = getValueFromLocalStorage('your-info')
     if (yourInfoFromLocalStorage) {
@@ -137,6 +152,8 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     }
   }, [])
 
+
+    // Context value composed of all state and dispatch functions
   const value = {
     nameField,
     dispatchNameField,
@@ -153,9 +170,12 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     clearForm
   }
 
+    // Providing context to child components
   return (
     <FormContext.Provider value={{ ...value }}>
       {children}
     </FormContext.Provider>
   );
 };
+
+
