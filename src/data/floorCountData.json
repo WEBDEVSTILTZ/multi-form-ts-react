@@ -1,0 +1,10 @@
+[
+  {
+    "name": "1 Floor",
+    "icon": "/images/lift type 2.png"
+  },
+  {
+    "name": "2 Floors",
+    "icon": "/images/lift type 3.png"
+  }
+]

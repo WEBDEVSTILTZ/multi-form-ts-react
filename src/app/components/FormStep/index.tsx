@@ -1,25 +1,41 @@
 import { useFormStep } from "../../hooks/use-form-step";
 
+
 import { YourInfo } from "./YourInfo";
 import { Plans } from "./Plans";
 import { AddOns } from "./AddOns";
 import { Summary } from "./Summary";
+import { Step1 } from "./Step1";
+import { Step2 } from "./Step2";
+import { Step3 } from "./Step3";
 
 const steps = [
   {
     step: 1,
-    component: YourInfo
+    component: Step1
   },
   {
     step: 2,
-    component: Plans
+    component: Step2
   },
   {
     step: 3,
-    component: AddOns
+    component: Step3
   },
   {
     step: 4,
+    component: YourInfo
+  },
+  {
+    step: 5,
+    component: Plans
+  },
+  {
+    step: 6,
+    component: AddOns
+  },
+  {
+    step: 7,
     component: Summary
   }
 ]

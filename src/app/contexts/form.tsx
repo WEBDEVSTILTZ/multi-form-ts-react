@@ -2,6 +2,9 @@
 
 import { createContext, useEffect, useReducer, useState } from 'react';
 import { useLocalStorage } from '../hooks/use-local-storage';
+import { FloorCountTypes } from '../types/floorCountType';
+import { LiftType } from '../types/liftType';
+import { TimeScaleTypes } from '../types/timeScaleType';
 
 // Type definition for individual form fields
 type Field = {
@@ -19,6 +22,12 @@ const initialState = {
 
 // Defining the structure of the context's data
 type FormContextData = {
+  selectedLiftType: LiftType;
+  setSelectedLiftType: React.Dispatch<React.SetStateAction<LiftType>>;
+  selectedFloorCount: FloorCountTypes;
+  setSelectedFloorCount: React.Dispatch<React.SetStateAction<FloorCountTypes>>;
+  selectedTimeScale: TimeScaleTypes;
+  setSelectedTimeScale: React.Dispatch<React.SetStateAction<TimeScaleTypes>>;
   nameField: Field;
   dispatchNameField: React.Dispatch<any>;
   emailField: Field;
@@ -36,19 +45,25 @@ type FormContextData = {
 
 // Creating a context for the form with initial values
 export const FormContext = createContext({
+  selectedLiftType: null as any,
+  setSelectedLiftType: () => { },
+  selectedFloorCount: null as any,
+  setSelectedFloorCount: () => { },
+  selectedTimeScale: null as any,
+  setSelectedTimeScale: () => { },
   nameField: initialState,
-  dispatchNameField: () => {},
+  dispatchNameField: () => { },
   emailField: initialState,
-  dispatchEmailField: () => {},
+  dispatchEmailField: () => { },
   phoneNumberField: initialState,
-  dispatchPhoneNumberField: () => {},
+  dispatchPhoneNumberField: () => { },
   isYearly: false,
-  setIsYearly: () => {},
+  setIsYearly: () => { },
   selectedPlan: null as any,
-  setSelectedPlan: () => {},
+  setSelectedPlan: () => { },
   addOns: [],
-  setAddOns: () => {},
-  clearForm: () => {}
+  setAddOns: () => { },
+  clearForm: () => { }
 } as FormContextData);
 
 // Defining action types for the reducer function
@@ -101,6 +116,15 @@ interface FormProviderProps {
 
 // FormProvider component, providing context to its children
 export const FormProvider = ({ children }: FormProviderProps) => {
+  // Lift Type
+  const [selectedLiftType, setSelectedLiftType] = useState<string | null>(null);
+
+  //floor count
+  const [selectedFloorCount, setSelectedFloorCount] = useState<string | null>(null);
+
+  // Time Scale
+  const [selectedTimeScale, setSelectedTimeScale] = useState<string | null>(null);
+
   // Your Info
   const [nameField, dispatchNameField] = useReducer(handleFormState, initialState)
   const [emailField, dispatchEmailField] = useReducer(handleFormState, initialState)
@@ -113,12 +137,15 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   // State for managing additional options or services
   const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([]);
 
-    // Utilizing custom local storage hook for persisting and retrieving data
+  // Utilizing custom local storage hook for persisting and retrieving data
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
 
 
   // Function to clear all form fields and reset state
   function clearForm() {
+    removeValueFromLocalStorage('liftType')
+    removeValueFromLocalStorage('floorCount')
+    removeValueFromLocalStorage('timeScale')
     removeValueFromLocalStorage('your-info')
     removeValueFromLocalStorage('plan')
     removeValueFromLocalStorage('add-ons')
@@ -126,13 +153,32 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     dispatchNameField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchEmailField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value: '' })
+    setSelectedLiftType(null)
+    setSelectedFloorCount(null)
+    setSelectedTimeScale(null)
     setIsYearly(false)
     setSelectedPlan(null as any)
     setAddOns([])
   }
 
-    // useEffect hook to initialize form fields from local storage upon component mount
+  // useEffect hook to initialize form fields from local storage upon component mount
   useEffect(() => {
+
+    const liftTypeFromLocalStorage = getValueFromLocalStorage('liftType')
+    if (liftTypeFromLocalStorage) {
+      setSelectedLiftType(liftTypeFromLocalStorage.name)
+    }
+
+    const floorCountFromLocalStorage = getValueFromLocalStorage('floorCount')
+    if (floorCountFromLocalStorage) {
+      setSelectedFloorCount(floorCountFromLocalStorage.name)
+    }
+
+    const timeScaleFromLocalStorage = getValueFromLocalStorage('timeScale')
+    if (timeScaleFromLocalStorage) {
+      setSelectedTimeScale(timeScaleFromLocalStorage.name)
+    }
+
     const yourInfoFromLocalStorage = getValueFromLocalStorage('your-info')
     if (yourInfoFromLocalStorage) {
       dispatchNameField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.name })
@@ -153,8 +199,14 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   }, [])
 
 
-    // Context value composed of all state and dispatch functions
+  // Context value composed of all state and dispatch functions
   const value = {
+    selectedLiftType,
+    setSelectedLiftType,
+    selectedFloorCount,
+    setSelectedFloorCount,
+    selectedTimeScale,
+    setSelectedTimeScale,
     nameField,
     dispatchNameField,
     emailField,
@@ -170,7 +222,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     clearForm
   }
 
-    // Providing context to child components
+  // Providing context to child components
   return (
     <FormContext.Provider value={{ ...value }}>
       {children}

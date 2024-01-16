@@ -1,0 +1,14 @@
+[
+  {
+    "name": "1-6 Months",
+    "icon": "/images/lift type 2.png"
+  },
+  {
+    "name": "6-12 Months",
+    "icon": "/images/lift type 3.png"
+  },
+  {
+    "name": "12+ Months",
+    "icon": "/images/lift type 3.png"
+  }
+]

@@ -32,10 +32,13 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
 
   // Hardcoded steps for the form
   const [steps, _] = useState([
-    { title: 'Your info', number: 1 },
-    { title: 'Select plan', number: 2 },
-    { title: 'ADD-ONS', number: 3 },
-    { title: 'Summary', number: 4 },
+    { title: 'Lift Type', number: 1 },
+    { title: 'Floor Count', number: 2 },
+    { title: 'Time Scale', number: 3 },
+    { title: 'Your info', number: 4 },
+    { title: 'Select plan', number: 5 },
+    { title: 'ADD-ONS', number: 6 },
+    { title: 'Summary', number: 7 },
   ]);
 
   // Destructuring local storage utility functions
