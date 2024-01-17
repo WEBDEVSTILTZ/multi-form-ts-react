@@ -28,12 +28,16 @@ type FormContextData = {
   setSelectedFloorCount: React.Dispatch<React.SetStateAction<FloorCountTypes>>;
   selectedTimeScale: TimeScaleTypes;
   setSelectedTimeScale: React.Dispatch<React.SetStateAction<TimeScaleTypes>>;
-  nameField: Field;
-  dispatchNameField: React.Dispatch<any>;
+  firstNameField: Field; 
+  dispatchFirstNameField: React.Dispatch<any>; 
+  lastNameField: Field; 
+  dispatchLastNameField: React.Dispatch<any>; 
   emailField: Field;
   dispatchEmailField: React.Dispatch<any>;
   phoneNumberField: Field;
   dispatchPhoneNumberField: React.Dispatch<any>;
+  additionalInfoField: Field;
+  dispatchAdditionalInfoField: React.Dispatch<any>; 
   isYearly: boolean;
   setIsYearly: React.Dispatch<React.SetStateAction<boolean>>;
   selectedPlan: Plan;
@@ -51,12 +55,16 @@ export const FormContext = createContext({
   setSelectedFloorCount: () => { },
   selectedTimeScale: null as any,
   setSelectedTimeScale: () => { },
-  nameField: initialState,
-  dispatchNameField: () => { },
+  firstNameField: initialState, // Changed from nameField
+  dispatchFirstNameField: () => { }, // Changed from dispatchNameField
+  lastNameField: initialState, // New field
+  dispatchLastNameField: () => { }, // New dispatch function
   emailField: initialState,
   dispatchEmailField: () => { },
   phoneNumberField: initialState,
   dispatchPhoneNumberField: () => { },
+  additionalInfoField: initialState,
+  dispatchAdditionalInfoField: () => { },
   isYearly: false,
   setIsYearly: () => { },
   selectedPlan: null as any,
@@ -126,9 +134,11 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const [selectedTimeScale, setSelectedTimeScale] = useState<string | null>(null);
 
   // Your Info
-  const [nameField, dispatchNameField] = useReducer(handleFormState, initialState)
+  const [firstNameField, dispatchFirstNameField] = useReducer(handleFormState, initialState); 
+  const [lastNameField, dispatchLastNameField] = useReducer(handleFormState, initialState); 
   const [emailField, dispatchEmailField] = useReducer(handleFormState, initialState)
   const [phoneNumberField, dispatchPhoneNumberField] = useReducer(handleFormState, initialState)
+  const [additionalInfoField, dispatchAdditionalInfoField] = useReducer(handleFormState, initialState); 
 
   // States for managing the subscription plan
   const [isYearly, setIsYearly] = useState<boolean>(false);
@@ -150,9 +160,11 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     removeValueFromLocalStorage('plan')
     removeValueFromLocalStorage('add-ons')
 
-    dispatchNameField({ type: ACTIONS.SET_VALUE, value: '' })
+    dispatchFirstNameField({ type: ACTIONS.SET_VALUE, value: '' }) // Changed from dispatchNameField
+    dispatchLastNameField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchEmailField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value: '' })
+    dispatchAdditionalInfoField({ type: ACTIONS.SET_VALUE, value: '' }) 
     setSelectedLiftType(null)
     setSelectedFloorCount(null)
     setSelectedTimeScale(null)
@@ -181,9 +193,11 @@ export const FormProvider = ({ children }: FormProviderProps) => {
 
     const yourInfoFromLocalStorage = getValueFromLocalStorage('your-info')
     if (yourInfoFromLocalStorage) {
-      dispatchNameField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.name })
+      dispatchFirstNameField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.firstName }) // Changed from dispatchNameField
+      dispatchLastNameField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.lastName }) // New line
       dispatchEmailField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.email })
       dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.phoneNumber })
+      dispatchAdditionalInfoField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.additionalInfo }) 
     }
 
     const planFromLocalStorage = getValueFromLocalStorage('plan')
@@ -207,12 +221,16 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     setSelectedFloorCount,
     selectedTimeScale,
     setSelectedTimeScale,
-    nameField,
-    dispatchNameField,
+    firstNameField, // Changed from nameField
+    dispatchFirstNameField, // Changed from dispatchNameField
+    lastNameField, // New field
+    dispatchLastNameField, // New dispatch function
     emailField,
     dispatchEmailField,
     phoneNumberField,
     dispatchPhoneNumberField,
+    additionalInfoField,
+    dispatchAdditionalInfoField,
     isYearly,
     setIsYearly,
     selectedPlan,

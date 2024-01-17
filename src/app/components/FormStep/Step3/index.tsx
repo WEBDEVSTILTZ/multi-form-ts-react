@@ -42,7 +42,7 @@ export function Step3() {
           description="You have the option of monthly or yearly billing."
         />
 
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row items-center justify-center" >
           {timeScaleData.map((timeScaleItem) => (
             <TimeScaleCard
               key={timeScaleItem.name}

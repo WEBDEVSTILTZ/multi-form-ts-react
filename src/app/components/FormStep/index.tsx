@@ -1,7 +1,7 @@
 import { useFormStep } from "../../hooks/use-form-step";
 
 
-import { YourInfo } from "./YourInfo";
+import { YourInfo } from "./Step4";
 import { Plans } from "./Plans";
 import { AddOns } from "./AddOns";
 import { Summary } from "./Summary";
@@ -27,15 +27,15 @@ const steps = [
     component: YourInfo
   },
   {
-    step: 5,
+    step: 6,
     component: Plans
   },
   {
-    step: 6,
+    step: 7,
     component: AddOns
   },
   {
-    step: 7,
+    step: 8,
     component: Summary
   }
 ]

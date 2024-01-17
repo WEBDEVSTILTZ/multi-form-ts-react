@@ -39,10 +39,11 @@ export function Step1() {
       <Form.Card>
         <Form.Header
           title="Select your lift type"
-          description="You have the option of monthly or yearly billing."
+          description="
+            We want to make sure you get the best experience possible."
         />
 
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row items-center justify-center">
           {liftTypes.map(liftType => (
             <LiftTypeCard
               key={liftType.name}
