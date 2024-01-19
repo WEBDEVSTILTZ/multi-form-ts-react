@@ -35,10 +35,10 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
     { title: 'Lift Type', number: 1 },
     { title: 'Floor Count', number: 2 },
     { title: 'Time Scale', number: 3 },
-    { title: 'Your info', number: 4 },
-    { title: 'Select plan', number: 5 },
-    { title: 'ADD-ONS', number: 6 },
-    { title: 'Summary', number: 7 },
+    { title: 'Your Details', number: 4 },
+    // { title: 'Select plan', number: 5 },
+    { title: 'Your Location', number: 5},
+    { title: 'Summary', number: 6 },
   ]);
 
   // Destructuring local storage utility functions

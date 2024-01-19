@@ -2,12 +2,11 @@ import { useFormStep } from "../../hooks/use-form-step";
 
 
 import { YourInfo } from "./Step4";
-import { Plans } from "./Plans";
-import { AddOns } from "./AddOns";
 import { Summary } from "./Summary";
 import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
 import { Step3 } from "./Step3";
+import { YourLocation } from "./Step5";
 
 const steps = [
   {
@@ -27,15 +26,11 @@ const steps = [
     component: YourInfo
   },
   {
+    step: 5,
+    component: YourLocation
+  },
+  {
     step: 6,
-    component: Plans
-  },
-  {
-    step: 7,
-    component: AddOns
-  },
-  {
-    step: 8,
     component: Summary
   }
 ]
@@ -46,8 +41,11 @@ export function FormStep() {
   const step = steps.find(({ step }) => step === currentStep);
 
   return (
+    // <div className="flex flex-col flex-1 justify-between">
+    //   {step && step.component()}
+    // </div>
     <div className="flex flex-col flex-1 justify-between">
-      {step && step.component()}
+      {step && typeof step.component === 'function' && step.component()}
     </div>
   )
 } 

@@ -23,7 +23,7 @@ export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
         onClick={handleGoForwardStep}
         className={`${isLastStep ? 'bg-purple' : 'bg-denim'} py-3 px-4 rounded text-sm text-white font-medium sm:text-base`}
       >
-        {isLastStep ? 'Confirm' : 'Next step'}
+        {isLastStep ? 'Get Quote' : 'Next step'}
       </button>
     </footer >
   )

@@ -15,7 +15,7 @@ export default function Home() {
           sm:flex-row sm:m-4 sm:mr-0 sm:h-[calc(100vh-32px)]`
         }>
           <Sidebar />
-          <div className="flex flex-1 items-center justify-center sm:max-w-[700px] sm:flex-0 sm:mx-auto">
+          <div className="flex flex-1  items-normal sm:items-center justify-center sm:max-w-[700px] sm:flex-0 sm:mx-auto">
             <FormStep />
           </div>
         </main >

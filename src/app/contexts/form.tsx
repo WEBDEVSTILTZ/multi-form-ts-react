@@ -28,24 +28,28 @@ type FormContextData = {
   setSelectedFloorCount: React.Dispatch<React.SetStateAction<FloorCountTypes>>;
   selectedTimeScale: TimeScaleTypes;
   setSelectedTimeScale: React.Dispatch<React.SetStateAction<TimeScaleTypes>>;
-  firstNameField: Field; 
-  dispatchFirstNameField: React.Dispatch<any>; 
-  lastNameField: Field; 
-  dispatchLastNameField: React.Dispatch<any>; 
+  firstNameField: Field;
+  dispatchFirstNameField: React.Dispatch<any>;
+  lastNameField: Field;
+  dispatchLastNameField: React.Dispatch<any>;
   emailField: Field;
   dispatchEmailField: React.Dispatch<any>;
   phoneNumberField: Field;
   dispatchPhoneNumberField: React.Dispatch<any>;
   additionalInfoField: Field;
   dispatchAdditionalInfoField: React.Dispatch<any>; 
-  isYearly: boolean;
-  setIsYearly: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedPlan: Plan;
-  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan>>;
-  addOns: { title: string, description: string, price: number }[];
-  setAddOns: React.Dispatch<React.SetStateAction<{ title: string; description: string; price: number; }[]>>;
+  postcodeField: Field; 
+  dispatchPostcodeField: React.Dispatch<any>; 
+  addressField: Field; 
+  dispatchAddressField: React.Dispatch<any>; 
+  cityField: Field; 
+  dispatchCityField: React.Dispatch<any>; 
+  countyField: Field; 
+  dispatchCountyField: React.Dispatch<any>; 
+  selectedFinanceField: Field;
+  setSelectedFinanceField: React.Dispatch<any>;
   clearForm: () => void;
-}
+};
 
 // Creating a context for the form with initial values
 export const FormContext = createContext({
@@ -65,12 +69,16 @@ export const FormContext = createContext({
   dispatchPhoneNumberField: () => { },
   additionalInfoField: initialState,
   dispatchAdditionalInfoField: () => { },
-  isYearly: false,
-  setIsYearly: () => { },
-  selectedPlan: null as any,
-  setSelectedPlan: () => { },
-  addOns: [],
-  setAddOns: () => { },
+  postcodeField: initialState, // Changed from firstNameField
+  dispatchPostcodeField: () => { }, // Changed from dispatchFirstNameField
+  addressField: initialState, // Changed from lastNameField
+  dispatchAddressField: () => { }, // Changed from dispatchLastNameField
+  cityField: initialState, // Changed from emailField
+  dispatchCityField: () => { }, // Changed from dispatchEmailField
+  countyField: initialState, // Changed from phoneNumberField
+  dispatchCountyField: () => { },
+  selectedFinanceField: initialState,
+  setSelectedFinanceField: () => { },
   clearForm: () => { }
 } as FormContextData);
 
@@ -111,11 +119,6 @@ function handleFormState(
   }
 }
 
-// Type definition for a plan (e.g., subscription plan)
-export type Plan = {
-  name: string;
-  price: number
-}
 
 // Interface for props passed to FormProvider component
 interface FormProviderProps {
@@ -140,9 +143,14 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const [phoneNumberField, dispatchPhoneNumberField] = useReducer(handleFormState, initialState)
   const [additionalInfoField, dispatchAdditionalInfoField] = useReducer(handleFormState, initialState); 
 
-  // States for managing the subscription plan
-  const [isYearly, setIsYearly] = useState<boolean>(false);
-  const [selectedPlan, setSelectedPlan] = useState<Plan>(null as any);
+  // Your Location
+   const [postcodeField, dispatchPostcodeField] = useReducer(handleFormState, initialState); 
+   const [addressField, dispatchAddressField] = useReducer(handleFormState, initialState); 
+   const [cityField, dispatchCityField] = useReducer(handleFormState, initialState); 
+   const [countyField, dispatchCountyField] = useReducer(handleFormState, initialState); 
+
+   // Finance
+    const [selectedFinanceField, setSelectedFinanceField] = useState<boolean>(false);
 
   // State for managing additional options or services
   const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([]);
@@ -157,20 +165,22 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     removeValueFromLocalStorage('floorCount')
     removeValueFromLocalStorage('timeScale')
     removeValueFromLocalStorage('your-info')
-    removeValueFromLocalStorage('plan')
-    removeValueFromLocalStorage('add-ons')
+    removeValueFromLocalStorage('your-location')
+    removeValueFromLocalStorage('finance-options')
 
     dispatchFirstNameField({ type: ACTIONS.SET_VALUE, value: '' }) // Changed from dispatchNameField
     dispatchLastNameField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchEmailField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchAdditionalInfoField({ type: ACTIONS.SET_VALUE, value: '' }) 
+    dispatchPostcodeField({ type: ACTIONS.SET_VALUE, value: '' })
+    dispatchAddressField({ type: ACTIONS.SET_VALUE, value: '' })
+    dispatchCityField({ type: ACTIONS.SET_VALUE, value: '' })
+    dispatchCountyField({ type: ACTIONS.SET_VALUE, value: '' })
+    setSelectedFinanceField(null)
     setSelectedLiftType(null)
     setSelectedFloorCount(null)
     setSelectedTimeScale(null)
-    setIsYearly(false)
-    setSelectedPlan(null as any)
-    setAddOns([])
   }
 
   // useEffect hook to initialize form fields from local storage upon component mount
@@ -178,17 +188,17 @@ export const FormProvider = ({ children }: FormProviderProps) => {
 
     const liftTypeFromLocalStorage = getValueFromLocalStorage('liftType')
     if (liftTypeFromLocalStorage) {
-      setSelectedLiftType(liftTypeFromLocalStorage.name)
+      setSelectedLiftType(liftTypeFromLocalStorage)
     }
 
     const floorCountFromLocalStorage = getValueFromLocalStorage('floorCount')
     if (floorCountFromLocalStorage) {
-      setSelectedFloorCount(floorCountFromLocalStorage.name)
+      setSelectedFloorCount(floorCountFromLocalStorage)
     }
 
     const timeScaleFromLocalStorage = getValueFromLocalStorage('timeScale')
     if (timeScaleFromLocalStorage) {
-      setSelectedTimeScale(timeScaleFromLocalStorage.name)
+      setSelectedTimeScale(timeScaleFromLocalStorage)
     }
 
     const yourInfoFromLocalStorage = getValueFromLocalStorage('your-info')
@@ -200,16 +210,18 @@ export const FormProvider = ({ children }: FormProviderProps) => {
       dispatchAdditionalInfoField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.additionalInfo }) 
     }
 
-    const planFromLocalStorage = getValueFromLocalStorage('plan')
-    if (planFromLocalStorage) {
-      setSelectedPlan(planFromLocalStorage.name)
-      setIsYearly(planFromLocalStorage.isYearly)
+    const yourLocationFromLocalStorage = getValueFromLocalStorage('your-location')
+    if (yourLocationFromLocalStorage) {
+      dispatchPostcodeField({ type: ACTIONS.SET_VALUE, value: yourLocationFromLocalStorage.postcode }) 
+      dispatchAddressField({ type: ACTIONS.SET_VALUE, value: yourLocationFromLocalStorage.address }) 
+      dispatchCityField({ type: ACTIONS.SET_VALUE, value: yourLocationFromLocalStorage.city }) 
+      dispatchCountyField({ type: ACTIONS.SET_VALUE, value: yourLocationFromLocalStorage.county }) 
     }
-
-    const addOnsFromLocalStorage = getValueFromLocalStorage('add-ons')
-    if (addOnsFromLocalStorage) {
-      setAddOns(addOnsFromLocalStorage)
+    const financeOptionsFromLocalStorage = getValueFromLocalStorage('finance-options')
+    if (financeOptionsFromLocalStorage) {
+      setSelectedFinanceField(financeOptionsFromLocalStorage)
     }
+    
   }, [])
 
 
@@ -231,12 +243,16 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     dispatchPhoneNumberField,
     additionalInfoField,
     dispatchAdditionalInfoField,
-    isYearly,
-    setIsYearly,
-    selectedPlan,
-    setSelectedPlan,
-    addOns,
-    setAddOns,
+    postcodeField, // Changed from firstNameField
+    dispatchPostcodeField, // Changed from dispatchFirstNameField
+    addressField, // Changed from lastNameField
+    dispatchAddressField, // Changed from dispatchLastNameField
+    cityField, // Changed from emailField
+    dispatchCityField, // Changed from dispatchEmailField
+    countyField, // Changed from phoneNumberField
+    dispatchCountyField,
+    selectedFinanceField,
+    setSelectedFinanceField,
     clearForm
   }
 
