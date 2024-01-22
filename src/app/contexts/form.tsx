@@ -22,12 +22,12 @@ const initialState = {
 
 // Defining the structure of the context's data
 type FormContextData = {
-  selectedLiftType: LiftType;
-  setSelectedLiftType: React.Dispatch<React.SetStateAction<LiftType>>;
-  selectedFloorCount: FloorCountTypes;
-  setSelectedFloorCount: React.Dispatch<React.SetStateAction<FloorCountTypes>>;
-  selectedTimeScale: TimeScaleTypes;
-  setSelectedTimeScale: React.Dispatch<React.SetStateAction<TimeScaleTypes>>;
+  selectedLiftType: LiftType  | null;
+  setSelectedLiftType: React.Dispatch<React.SetStateAction<LiftType | null>>;
+  selectedFloorCount: FloorCountTypes  | null;
+  setSelectedFloorCount: React.Dispatch<React.SetStateAction<FloorCountTypes | null>>;
+  selectedTimeScale: TimeScaleTypes  | null;
+  setSelectedTimeScale: React.Dispatch<React.SetStateAction<TimeScaleTypes | null>>;
   firstNameField: Field;
   dispatchFirstNameField: React.Dispatch<any>;
   lastNameField: Field;
@@ -46,18 +46,18 @@ type FormContextData = {
   dispatchCityField: React.Dispatch<any>; 
   countyField: Field; 
   dispatchCountyField: React.Dispatch<any>; 
-  selectedFinanceField: Field;
-  setSelectedFinanceField: React.Dispatch<any>;
+  selectedFinanceField: boolean;
+  setSelectedFinanceField: React.Dispatch<React.SetStateAction<boolean>>
   clearForm: () => void;
 };
 
 // Creating a context for the form with initial values
 export const FormContext = createContext({
-  selectedLiftType: null as any,
+  selectedLiftType: null,
   setSelectedLiftType: () => { },
-  selectedFloorCount: null as any,
+  selectedFloorCount: null,
   setSelectedFloorCount: () => { },
-  selectedTimeScale: null as any,
+  selectedTimeScale: null,
   setSelectedTimeScale: () => { },
   firstNameField: initialState, // Changed from nameField
   dispatchFirstNameField: () => { }, // Changed from dispatchNameField
@@ -77,7 +77,7 @@ export const FormContext = createContext({
   dispatchCityField: () => { }, // Changed from dispatchEmailField
   countyField: initialState, // Changed from phoneNumberField
   dispatchCountyField: () => { },
-  selectedFinanceField: initialState,
+  selectedFinanceField: false,
   setSelectedFinanceField: () => { },
   clearForm: () => { }
 } as FormContextData);
@@ -128,13 +128,13 @@ interface FormProviderProps {
 // FormProvider component, providing context to its children
 export const FormProvider = ({ children }: FormProviderProps) => {
   // Lift Type
-  const [selectedLiftType, setSelectedLiftType] = useState<string | null>(null);
+  const [selectedLiftType, setSelectedLiftType] = useState<LiftType | null>(null);
 
   //floor count
-  const [selectedFloorCount, setSelectedFloorCount] = useState<string | null>(null);
+  const [selectedFloorCount, setSelectedFloorCount] = useState<FloorCountTypes | null>(null);
 
   // Time Scale
-  const [selectedTimeScale, setSelectedTimeScale] = useState<string | null>(null);
+  const [selectedTimeScale, setSelectedTimeScale] = useState<TimeScaleTypes | null>(null);
 
   // Your Info
   const [firstNameField, dispatchFirstNameField] = useReducer(handleFormState, initialState); 
@@ -152,8 +152,6 @@ export const FormProvider = ({ children }: FormProviderProps) => {
    // Finance
     const [selectedFinanceField, setSelectedFinanceField] = useState<boolean>(false);
 
-  // State for managing additional options or services
-  const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([]);
 
   // Utilizing custom local storage hook for persisting and retrieving data
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
@@ -177,7 +175,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     dispatchAddressField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchCityField({ type: ACTIONS.SET_VALUE, value: '' })
     dispatchCountyField({ type: ACTIONS.SET_VALUE, value: '' })
-    setSelectedFinanceField(null)
+    setSelectedFinanceField(false)
     setSelectedLiftType(null)
     setSelectedFloorCount(null)
     setSelectedTimeScale(null)
@@ -186,20 +184,39 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   // useEffect hook to initialize form fields from local storage upon component mount
   useEffect(() => {
 
-    const liftTypeFromLocalStorage = getValueFromLocalStorage('liftType')
+    const liftTypeFromLocalStorage = getValueFromLocalStorage('liftType');
     if (liftTypeFromLocalStorage) {
-      setSelectedLiftType(liftTypeFromLocalStorage)
+      console.log("this fired")
+      try {
+        setSelectedLiftType(liftTypeFromLocalStorage);
+      } catch (error) {
+        console.error("Error parsing liftType from local storage:", error);
+        // Handle the error or set a default value
+      }
     }
 
     const floorCountFromLocalStorage = getValueFromLocalStorage('floorCount')
-    if (floorCountFromLocalStorage) {
-      setSelectedFloorCount(floorCountFromLocalStorage)
+    if (floorCountFromLocalStorage !== null) {
+      try {
+        setSelectedFloorCount(floorCountFromLocalStorage);
+      } catch (error) {
+        console.error("Error parsing floorCount from local storage:", error);
+        // Handle the error or set a default value
+      }
     }
+    
+    
 
     const timeScaleFromLocalStorage = getValueFromLocalStorage('timeScale')
-    if (timeScaleFromLocalStorage) {
-      setSelectedTimeScale(timeScaleFromLocalStorage)
+    if (timeScaleFromLocalStorage !== null) {
+      try {
+        setSelectedTimeScale(timeScaleFromLocalStorage);
+      } catch (error) {
+        console.error("Error parsing timeScale from local storage:", error);
+        // Handle the error or set a default value
+      }
     }
+    
 
     const yourInfoFromLocalStorage = getValueFromLocalStorage('your-info')
     if (yourInfoFromLocalStorage) {

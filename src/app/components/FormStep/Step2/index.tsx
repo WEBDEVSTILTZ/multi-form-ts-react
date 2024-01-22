@@ -23,8 +23,10 @@ export function Step2() {
 
   function handleGoForwardStep() {
     if (!selectedFloorCount) return;
-    saveValueToLocalStorage('floorCount', selectedFloorCount.name)
-    handleNextStep()
+    
+    saveValueToLocalStorage('floorCount', JSON.stringify(selectedFloorCount));
+  
+    handleNextStep();
   }
 
   function handleSelectFloorCount(floorcount: FloorCountTypes) {

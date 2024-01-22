@@ -23,7 +23,8 @@ export function Step1() {
 
   function handleGoForwardStep() {
     if (!selectedLiftType) return;
-    saveValueToLocalStorage('liftType', selectedLiftType.name)
+    saveValueToLocalStorage('liftType', JSON.stringify(selectedLiftType));
+    console.log('liftType', JSON.stringify(selectedLiftType))
     handleNextStep()
   }
 

@@ -23,7 +23,7 @@ export function Step3() {
 
   function handleGoForwardStep() {
     if (!selectedTimeScale) return;
-    saveValueToLocalStorage('timeScale', selectedTimeScale.name)
+    saveValueToLocalStorage('timeScale', JSON.stringify(selectedTimeScale))
     handleNextStep()
   }
 

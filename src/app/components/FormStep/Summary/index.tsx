@@ -1,33 +1,24 @@
 import { Fragment, useEffect, useState } from "react";
-
 import { useContext } from 'react';
 import { FormContext } from "../../../contexts/form";
-
 import { useForm } from "../../../hooks/use-form";
 import { useFormStep } from "../../../hooks/use-form-step";
 import { useLocalStorage } from "../../../hooks/use-local-storage";
-
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from '@radix-ui/react-icons';
-
 import { Footer } from "../../Footer";
 import Form from "../../Form";
 import { PostConfirmation } from "./PostConfirmation";
 
-
-
-
 export function Summary() {
-
   const formContextData = useContext(FormContext);
   console.log(formContextData);
 
+  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // New state variable for loading state
 
-  const [submitted, setSubmitted] = useState(false)
-
-  const { handlePreviousStep, moveToStep } = useFormStep()
-
-  const { saveValueToLocalStorage } = useLocalStorage()
+  const { handlePreviousStep, moveToStep } = useFormStep();
+  const { saveValueToLocalStorage } = useLocalStorage();
 
   const { 
     selectedLiftType, 
@@ -37,7 +28,8 @@ export function Summary() {
     lastNameField, 
     emailField, 
     phoneNumberField, 
-    postcodeField, 
+    postcodeField,
+    additionalInfoField, 
     addressField, 
     cityField, 
     countyField,
@@ -46,32 +38,73 @@ export function Summary() {
     clearForm 
   } = useForm();
 
+  async function handleGoForwardStep() {
+    setIsLoading(true); // Set loading state to true before fetch request
 
-  function handleGoForwardStep() {
-    saveValueToLocalStorage('finance-option', selectedFinanceField)
-    setSubmitted(true)
+    saveValueToLocalStorage('finance-option', selectedFinanceField);
+
+    const url = 'https://europe-west2-quote-stiltz-uk.cloudfunctions.net/quote-netsuite'; // Replace with your function's URL
+
+    const formData = {
+      LiftType:selectedLiftType,
+      FloorCount:selectedFloorCount,
+      TimeScale:selectedTimeScale,
+      firstName: firstNameField,
+      lastName: lastNameField,
+      email: emailField,
+      phoneNumber: phoneNumberField,
+      postcode: postcodeField,
+      additionalInfo: additionalInfoField,
+      address: addressField,
+      city: cityField,
+      county: countyField,
+      selectedFinance: selectedFinanceField,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false); // Set loading state to false after fetch request
+    }
   }
-
 
   useEffect(() => {
     if (submitted) {
-      clearForm()
+      clearForm();
 
       setTimeout(() => {
-        moveToStep(1)
-      }, 4000)
+        moveToStep(1);
+      }, 4000);
     }
-  }, [submitted, moveToStep])
+  }, [submitted, moveToStep]);
 
   if (submitted) {
     return (
       <PostConfirmation />
-    )
+    );
   }
 
 
   return (
 <Fragment>
+  {isLoading ? 'Loading...' : null} 
     <Form.Card>
       <Form.Header
         title="Finishing up"
@@ -108,15 +141,19 @@ export function Summary() {
               </tr>
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">Lift Type</td>
-                <td className="px-6 py-4 whitespace-nowrap">{selectedLiftType.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{selectedLiftType?.name}</td>
               </tr>
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">Floor Count</td>
-                <td className="px-6 py-4 whitespace-nowrap">{selectedFloorCount.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{selectedFloorCount?.name}</td>
               </tr>
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">Time Scale</td>
-                <td className="px-6 py-4 whitespace-nowrap">{selectedTimeScale.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{selectedTimeScale?.name}</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-4 whitespace-nowrap">Additional Info</td>
+                <td className="px-6 py-4 whitespace-nowrap">{additionalInfoField.value}</td>
               </tr>
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">Postcode</td>
@@ -157,7 +194,6 @@ export function Summary() {
   <div className="flex items-center">
   <Checkbox.Root
   className="shadow-blackA4 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px_black]"
-  defaultChecked
   onCheckedChange={() => {
     const newValue = !selectedFinanceField;
     console.log('Checkbox value:', newValue);

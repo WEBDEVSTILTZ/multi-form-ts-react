@@ -27,12 +27,16 @@ export function useLocalStorage() {
   function getValue(key: string) {
     if (!localStorage) return null;
     const value = localStorage.getItem(key);
-    try {
-      // Try to parse as JSON
-      return JSON.parse(value);
-    } catch {
-      // If parsing as JSON fails, return the value as a string
-      return value;
+    if (value) {
+      try {
+        // Try to parse as JSON
+        return JSON.parse(value);
+      } catch {
+        // If parsing as JSON fails, return the value as a string
+        return value;
+      }
+    } else {
+      return null;
     }
   }
 
