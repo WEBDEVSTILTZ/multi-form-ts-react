@@ -1,4 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, } from "react";
+import React from 'react';
 import { useContext } from 'react';
 import { FormContext } from "../../../contexts/form";
 import { useForm } from "../../../hooks/use-form";
@@ -9,13 +10,14 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import { Footer } from "../../Footer";
 import Form from "../../Form";
 import { PostConfirmation } from "./PostConfirmation";
+import { LoadingQuote } from "./loading";
 
 export function Summary() {
   const formContextData = useContext(FormContext);
   console.log(formContextData);
 
   const [submitted, setSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // New state variable for loading state
+  const [showLoadingQuote, setShowLoadingQuote] = React.useState(false); // New state variable for loading state
 
   const { handlePreviousStep, moveToStep } = useFormStep();
   const { saveValueToLocalStorage } = useLocalStorage();
@@ -39,7 +41,6 @@ export function Summary() {
   } = useForm();
 
   async function handleGoForwardStep() {
-    setIsLoading(true); // Set loading state to true before fetch request
 
     saveValueToLocalStorage('finance-option', selectedFinanceField);
 
@@ -62,49 +63,54 @@ export function Summary() {
     };
 
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      // if (!response.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
 
-      const data = await response.json();
-      console.log(data);
+      // const data = await response.json();
+      // console.log(data);
 
       setSubmitted(true);
     } catch (error) {
       console.error('Error:', error);
     } finally {
-      setIsLoading(false); // Set loading state to false after fetch request
+       // Set loading state to false after fetch request
+       setShowLoadingQuote(true);
+       setTimeout(() => {
+        setShowLoadingQuote(false);
+      }, 1400);
     }
   }
 
-  useEffect(() => {
-    if (submitted) {
-      clearForm();
+  // useEffect(() => {
+  //   if (submitted) {
+  //     clearForm();
 
-      setTimeout(() => {
-        moveToStep(1);
-      }, 4000);
-    }
-  }, [submitted, moveToStep]);
+  //     setTimeout(() => {
+  //       moveToStep(1);
+  //     }, 14000);
+  //   }
+  // }, [submitted, moveToStep]);
 
   if (submitted) {
-    return (
-      <PostConfirmation />
-    );
+    if (showLoadingQuote) {
+      return <LoadingQuote />;
+    } else {
+      return <PostConfirmation />;
+    }
   }
 
 
   return (
 <Fragment>
-  {isLoading ? 'Loading...' : null} 
     <Form.Card>
       <Form.Header
         title="Finishing up"
