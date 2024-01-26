@@ -7,6 +7,7 @@ import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
 import { Step3 } from "./Step3";
 import { YourLocation } from "./Step5";
+import {Step7} from "./Step7";
 
 const steps = [
   {
@@ -32,6 +33,10 @@ const steps = [
   {
     step: 6,
     component: Summary
+  },
+  {
+    step: 7,
+    component: Step7
   }
 ]
 

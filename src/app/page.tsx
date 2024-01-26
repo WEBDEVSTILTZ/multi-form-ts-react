@@ -6,13 +6,13 @@ import { FormProvider } from "./contexts/form";
 
 import { FormStepProvider } from "./contexts/form-step";
 
-import TagManager from 'react-gtm-module'
+// import TagManager from 'react-gtm-module'
 
-const tagManagerArgs = {
-    gtmId: 'GTM-TSRZ5DRX'
-}
+// const tagManagerArgs = {
+//     gtmId: 'GTM-TSRZ5DRX'
+// }
 
-TagManager.initialize(tagManagerArgs)
+// TagManager.initialize(tagManagerArgs)
 
 export default function Home() {
   return (

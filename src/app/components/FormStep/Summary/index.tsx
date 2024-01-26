@@ -9,7 +9,6 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from '@radix-ui/react-icons';
 import { Footer } from "../../Footer";
 import Form from "../../Form";
-import { PostConfirmation } from "./PostConfirmation";
 import { LoadingQuote } from "./loading";
 
 export function Summary() {
@@ -19,7 +18,7 @@ export function Summary() {
   const [submitted, setSubmitted] = useState(false);
   const [showLoadingQuote, setShowLoadingQuote] = React.useState(false); // New state variable for loading state
 
-  const { handlePreviousStep, moveToStep } = useFormStep();
+  const { handlePreviousStep, handleNextStep } = useFormStep();
   const { saveValueToLocalStorage } = useLocalStorage();
 
   const { 
@@ -43,6 +42,7 @@ export function Summary() {
   async function handleGoForwardStep() {
 
     saveValueToLocalStorage('finance-option', selectedFinanceField);
+
 
     const url = 'https://europe-west2-quote-stiltz-uk.cloudfunctions.net/quote-netsuite'; // Replace with your function's URL
 
@@ -86,6 +86,7 @@ export function Summary() {
        setShowLoadingQuote(true);
        setTimeout(() => {
         setShowLoadingQuote(false);
+        handleNextStep()
       }, 1400);
     }
   }
@@ -103,8 +104,6 @@ export function Summary() {
   if (submitted) {
     if (showLoadingQuote) {
       return <LoadingQuote />;
-    } else {
-      return <PostConfirmation />;
     }
   }
 

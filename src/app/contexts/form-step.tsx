@@ -38,6 +38,7 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
     { title: 'Your Details', number: 4 },
     { title: 'Your Location', number: 5},
     { title: 'Summary', number: 6 },
+    { title: 'Quote', number: 7 },
   ]);
 
   // Destructuring local storage utility functions

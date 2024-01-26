@@ -17,7 +17,7 @@ import AddressSearch from 'react-loqate';
 
 
 
-const APIKey = process.env.NEXT_PUBLIC_LOQATE_API_KEY
+const APIKey = process.env.NEXT_PUBLIC_LOQATE_API_KEY || ''
 
 
 export function YourLocation() {
@@ -49,7 +49,7 @@ export function YourLocation() {
     //}
   }
 
-  const CustomInput = ({className, ...props}): JSX.Element => {
+  const CustomInput = ({className, ...props}: {className?: string, [key: string]: any}): JSX.Element => {
     const combinedClassName = `${className} px-4 py-3 rounded border-[1px] text-base text-denim font-medium bg 
     placeholder:text-grey
     focus:outline-none focus:border-purple`;
