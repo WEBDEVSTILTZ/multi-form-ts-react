@@ -18,15 +18,17 @@ export default function Home() {
   return (
     <FormStepProvider>
       <FormProvider>
-        <main className={`
-          flex flex-col h-screen m-0
-          sm:flex-row sm:m-4 sm:mr-0 sm:h-[calc(100vh-32px)]`
-        }>
-          <Sidebar />
-          <div className="flex flex-1  items-normal sm:items-center justify-center sm:max-w-[700px] sm:flex-0 sm:mx-auto">
-            <FormStep />
-          </div>
-        </main >
+        <div className="flex justify-center min-h-screen max-w-1920px max-h-[900px] mx-auto">
+          <main className={`
+            flex flex-col h-screen m-0 w-full
+            sm:flex-row sm:m-4 sm:mr-0 sm:h-[calc(100vh-32px)]
+          `}>
+            <Sidebar />
+            <div className="flex flex-1 items-normal sm:items-center justify-center sm:max-w-[700px] sm:flex-0 sm:mx-auto">
+              <FormStep />
+            </div>
+          </main>
+        </div>
       </FormProvider>
     </FormStepProvider>
   )

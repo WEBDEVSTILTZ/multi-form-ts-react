@@ -20,7 +20,10 @@ const config: Config = {
         purple: '#483EFF',
         'very-light-grey': '#F8F9FF',
         meduimgrey: '#D0CDD7',
-      }
+      },
+      maxWidth: {
+        '1920px': '1920px',
+      },
     }
   },
   plugins: [],
