@@ -10,10 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         white: '#FFFFFF',
-        ['sky-blue']: '#BEE2FD',
+        ['sky-blue']: '#8ea50b', //turned this into stiltz green
         denim: '#022959',
         bg: '#EFF5FF',
-        ['light-blue']: '#ABBCFF',
+        ['light-blue']: '#92ACBE', //turned this into stiltz green
         grey: '#9699AA',
         red: '#EE374A',
         'border-grey': '#D6D9E6',

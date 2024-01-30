@@ -59,10 +59,10 @@ export function YourLocation() {
       <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-5 mt-5">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex items-center justify-between">
-            <label className="text-denim text-xs sm:text-sm	">PostCode</label>
+            <label className="text-denim text-xs sm:text-sm	">Address Search</label>
           </div>
           <input
-            placeholder={'Start typing your postcode and select your address'}
+            placeholder={'Start typing your address and select from the list to prepopulate the form'}
             autoComplete="chrome-off"
             className={combinedClassName}
             {...props}
@@ -118,6 +118,15 @@ export function YourLocation() {
             hasError={false} />
         </div>
         <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-5 mt-5">
+        <TextInput
+            label="Postcode"
+            placeholder="e.g. OX1 2JD"
+            value={postcodeField.value}
+            onChange={(value: string) => dispatchPostcodeField({ type: ACTIONS.SET_VALUE, value })}
+            errorMessage={postcodeField.errorMessage}
+            clearError={() => dispatchPostcodeField({ type: ACTIONS.CLEAR_ERROR })}
+            hasError={false}
+          />
           <TextInput
             label="County"
             placeholder="e.g. Greater London"
