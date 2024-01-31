@@ -15,8 +15,8 @@ export function LiftTypeCard({ liftType, icon, isSelected, handleSelectLiftType 
       <button
         className={`
         flex gap-4 justify-center items-center w-32 h-32 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded border-[1px] border-border-grey bg-white p-4 transition duration-200
-        hover:border-purple hover:bg-very-light-grey 
-        ${isSelected ? 'border-purple bg-very-light-grey' : ''}
+        hover:StiltzYellow hover:bg-very-light-grey 
+        ${isSelected ? 'border-StiltzYellow bg-very-light-grey' : ''}
         `}
         onClick={() => handleSelectLiftType(liftType)}
       >

@@ -52,7 +52,7 @@ export function YourLocation() {
   const CustomInput = ({className, ...props}: {className?: string, [key: string]: any}): JSX.Element => {
     const combinedClassName = `${className} px-4 py-3 rounded border-[1px] text-base text-denim font-medium bg 
     placeholder:text-grey
-    focus:outline-none focus:border-purple`;
+    focus:outline-none focus:border-StiltzYellow`;
     console.log(props)
     
     return (

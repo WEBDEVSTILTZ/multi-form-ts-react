@@ -12,6 +12,10 @@ const config: Config = {
         white: '#FFFFFF',
         ['sky-blue']: '#8ea50b', //turned this into stiltz green
         denim: '#022959',
+        StiltzGreen: '#8ea50b',
+        StiltzYellow: '#edb000',
+        StiltzOrange: '#e56e02',
+        StiltzGrey: '#383c3f',
         bg: '#EFF5FF',
         ['light-blue']: '#92ACBE', //turned this into stiltz green
         grey: '#9699AA',

@@ -123,58 +123,58 @@ export function Summary() {
                 <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Field</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                <th className="px-2  py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Field</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
             <tr>
-                <td className="px-6 py-4 whitespace-nowrap">First Name</td>
-                <td className="px-6 py-4 whitespace-nowrap">{firstNameField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">First Name</td>
+                <td className="px-2  py-4 whitespace-nowrap">{firstNameField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Last Name</td>
-                <td className="px-6 py-4 whitespace-nowrap">{lastNameField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Last Name</td>
+                <td className="px-2 py-4 whitespace-nowrap">{lastNameField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Phone Number</td>
-                <td className="px-6 py-4 whitespace-nowrap">{phoneNumberField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Phone Number</td>
+                <td className="px-2 py-4 whitespace-nowrap">{phoneNumberField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Email</td>
-                <td className="px-6 py-4 whitespace-nowrap">{emailField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Email</td>
+                <td className="px-2 py-4 whitespace-nowrap">{emailField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Lift Type</td>
-                <td className="px-6 py-4 whitespace-nowrap">{selectedLiftType?.name}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Lift Type</td>
+                <td className="px-2 py-4 whitespace-nowrap">{selectedLiftType?.name}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Floor Count</td>
-                <td className="px-6 py-4 whitespace-nowrap">{selectedFloorCount?.name}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Floor Count</td>
+                <td className="px-2 py-4 whitespace-nowrap">{selectedFloorCount?.name}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Time Scale</td>
-                <td className="px-6 py-4 whitespace-nowrap">{selectedTimeScale?.name}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Time Scale</td>
+                <td className="px-2 py-4 whitespace-nowrap">{selectedTimeScale?.name}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Additional Info</td>
-                <td className="px-6 py-4 whitespace-nowrap">{additionalInfoField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Additional Info</td>
+                <td className="px-2 py-4 whitespace-nowrap">{additionalInfoField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Postcode</td>
-                <td className="px-6 py-4 whitespace-nowrap">{postcodeField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Postcode</td>
+                <td className="px-2 py-4 whitespace-nowrap">{postcodeField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Address</td>
-                <td className="px-6 py-4 whitespace-nowrap">{addressField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">Address</td>
+                <td className="px-2 py-4 whitespace-nowrap">{addressField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">City</td>
-                <td className="px-6 py-4 whitespace-nowrap">{cityField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">City</td>
+                <td className="px-2 py-4 whitespace-nowrap">{cityField.value}</td>
               </tr>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">County</td>
-                <td className="px-6 py-4 whitespace-nowrap">{countyField.value}</td>
+                <td className="px-2 py-4 whitespace-nowrap">County</td>
+                <td className="px-2 py-4 whitespace-nowrap">{countyField.value}</td>
               </tr>
 
             </tbody>
