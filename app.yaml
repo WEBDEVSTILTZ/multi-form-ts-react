@@ -6,3 +6,8 @@ automatic_scaling:
   min_instances: 1
   max_instances: 2
 network: {}
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always

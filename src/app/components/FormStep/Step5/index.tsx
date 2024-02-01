@@ -62,7 +62,7 @@ export function YourLocation() {
             <label className="text-denim text-xs sm:text-sm	">Address Search</label>
           </div>
           <input
-            placeholder={'Start typing your address and select from the list to prepopulate the form'}
+            placeholder={'Start typing your address and select from the list'}
             autoComplete="chrome-off"
             className={combinedClassName}
             {...props}

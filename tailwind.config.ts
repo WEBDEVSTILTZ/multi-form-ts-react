@@ -14,7 +14,7 @@ const config: Config = {
         denim: '#022959',
         StiltzGreen: '#8ea50b',
         stiltzyellow: '#edb000',
-        stiltzyellowtrans: '#edb00030',
+        stiltzyellowtrans: 'rgba(237, 176, 0, 0.5)',
         StiltzOrange: '#e56e02',
         StiltzGrey: '#383c3f',
         bg: '#EFF5FF',
