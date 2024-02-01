@@ -13,7 +13,8 @@ const config: Config = {
         ['sky-blue']: '#8ea50b', //turned this into stiltz green
         denim: '#022959',
         StiltzGreen: '#8ea50b',
-        StiltzYellow: '#edb000',
+        stiltzyellow: '#edb000',
+        stiltzyellowtrans: '#edb00030',
         StiltzOrange: '#e56e02',
         StiltzGrey: '#383c3f',
         bg: '#EFF5FF',
@@ -28,7 +29,10 @@ const config: Config = {
       maxWidth: {
         '1920px': '1920px',
       },
-    }
+      screens: {
+      'sm': '900px',
+    },
+    },
   },
   plugins: [],
 }

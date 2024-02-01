@@ -39,12 +39,12 @@ export default function Home() {
   return (
     <FormStepProvider>
       <FormProvider>
-        <div className="flex flex-col items-center justify-center min-h-screen max-w-1920px max-h-[900px] mx-auto">
+        <div className="flex flex-col items-center justify-between sm:justify-center min-h-screen max-w-1920px max-h-[900px] mx-auto">
           <main className="flex flex-col sm:flex-row w-full h-full max-w-1920px">
             <div className="flex-none sm:w-1/4">
               <Sidebar />
             </div>
-            <div className="flex-grow flex items-center justify-center sm:w-3/4 sm:max-w-xl sm:mx-auto">
+            <div className="flex-grow flex items-center justify-center sm:w-3/4 sm:max-w-xl sm:ml-[15%] sm:mr-auto">
               <FormStep />
             </div>
           </main>
