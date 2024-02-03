@@ -11,6 +11,8 @@ import { useForm } from "../../../hooks/use-form";
 import { FloorCountTypes } from "@/app/types/floorCountType";
 import floorCountData from '../../../../data/floorCountData.json'
 
+import TagManager from 'react-gtm-module';
+
 export function Step2() {
   const {
     selectedFloorCount,
@@ -25,6 +27,15 @@ export function Step2() {
     if (!selectedFloorCount) return;
     
     saveValueToLocalStorage('floorCount', JSON.stringify(selectedFloorCount));
+
+    const dataLayer = {
+      event: 'Step2', // This is typically the event name you're tracking
+      liftType: selectedFloorCount.name // Make sure this property exists
+  };
+
+  TagManager.dataLayer({
+      dataLayer: dataLayer
+  });
   
     handleNextStep();
   }

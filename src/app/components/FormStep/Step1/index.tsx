@@ -11,6 +11,8 @@ import { useForm } from "../../../hooks/use-form";
 import { LiftType } from "../../../types/liftType";
 import liftTypes from '../../../../data/liftTypeData.json'
 
+import TagManager from 'react-gtm-module';
+
 export function Step1() {
   const {
     selectedLiftType,
@@ -25,6 +27,16 @@ export function Step1() {
     if (!selectedLiftType) return;
     saveValueToLocalStorage('liftType', JSON.stringify(selectedLiftType));
     console.log('liftType', JSON.stringify(selectedLiftType))
+    const dataLayer = {
+      event: 'Step1', // This is typically the event name you're tracking
+      liftType: selectedLiftType.name // Make sure this property exists
+  };
+
+  TagManager.dataLayer({
+      dataLayer: dataLayer
+  });
+
+  
     handleNextStep()
   }
 

@@ -12,6 +12,8 @@ import { AddressTextInput } from "../../Form/AddressTextInput";
 import Form from "../../Form";
 import { Footer } from "../../Footer";
 
+import TagManager from 'react-gtm-module';
+
 import AddressSearch from 'react-loqate';
 // import 'react-loqate/dist/react-loqate.cjs.development.css';
 
@@ -45,6 +47,16 @@ export function YourLocation() {
       city: cityField.value,
       county: countyField.value,
     }))
+
+    const dataLayer = {
+      event: 'Step5', // This is typically the event name you're tracking
+  };
+
+  TagManager.dataLayer({
+      dataLayer: dataLayer
+  });
+
+
     handleNextStep()
     //}
   }

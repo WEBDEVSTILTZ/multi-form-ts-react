@@ -12,6 +12,8 @@ import { TextArea } from "../../Form/TextArea";
 import Form from "../../Form";
 import { Footer } from "../../Footer";
 
+import TagManager from 'react-gtm-module';
+
 export function YourInfo() {
   const {
     firstNameField, // Changed from nameField
@@ -76,6 +78,16 @@ export function YourInfo() {
         email: emailField.value,
         phoneNumber: phoneNumberField.value
       }))
+
+      const dataLayer = {
+        event: 'Step4', // This is typically the event name you're tracking
+    };
+  
+    TagManager.dataLayer({
+        dataLayer: dataLayer
+    });
+
+
       handleNextStep()
     }
   }
