@@ -17,7 +17,7 @@ export function Sidebar() {
     // >
     <div
       className="
-  flex justify-center items-start pt-8 w-full bg-no-repeat bg-cover bg-[url('/images/bg-sidebar-mobile-hle.svg')] 
+  flex justify-center items-start pt-8 w-full bg-no-repeat bg-cover bg-[url('/images/bg-sidebar-desktop-HLE.svg')] 
   sm:flex-col sm:justify-start sm:items-start sm:p-8 sm:w-[274px] sm:bg-[url('/images/bg-sidebar-desktop-HLE.svg')] 
   sm:rounded-lg sm:bg-center min-h-[150px] sm:min-h-screen flex-shrink-0"
     >
