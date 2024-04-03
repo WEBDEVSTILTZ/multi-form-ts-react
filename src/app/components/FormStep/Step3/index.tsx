@@ -11,6 +11,8 @@ import { useForm } from "../../../hooks/use-form";
 import { TimeScaleTypes } from "@/app/types/timeScaleType";
 import timeScaleData from '../../../../data/timeScaleData.json'
 
+import TagManager from 'react-gtm-module';
+
 export function Step3() {
   const {
     selectedTimeScale,
@@ -24,6 +26,17 @@ export function Step3() {
   function handleGoForwardStep() {
     if (!selectedTimeScale) return;
     saveValueToLocalStorage('timeScale', JSON.stringify(selectedTimeScale))
+
+    const dataLayer = {
+      event: 'Step3', // This is typically the event name you're tracking
+      liftType: selectedTimeScale.name // Make sure this property exists
+  };
+
+  TagManager.dataLayer({
+      dataLayer: dataLayer
+  });
+
+
     handleNextStep()
   }
 

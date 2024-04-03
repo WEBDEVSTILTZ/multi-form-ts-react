@@ -11,6 +11,8 @@ import { Footer } from "../../Footer";
 import Form from "../../Form";
 import { LoadingQuote } from "./loading";
 
+import TagManager from 'react-gtm-module';
+
 export function Summary() {
   const formContextData = useContext(FormContext);
   console.log(formContextData);
@@ -77,6 +79,16 @@ export function Summary() {
 
       // const data = await response.json();
       // console.log(data);
+
+      const dataLayer = {
+        event: 'Step6 | Submitted', // This is typically the event name you're tracking
+        FinanceField: selectedFinanceField,
+    };
+  
+    TagManager.dataLayer({
+        dataLayer: dataLayer
+    });
+
 
       setSubmitted(true);
     } catch (error) {
