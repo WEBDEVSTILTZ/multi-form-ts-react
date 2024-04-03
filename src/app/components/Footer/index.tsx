@@ -21,7 +21,7 @@ export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
       </button>
       <button
         onClick={handleGoForwardStep}
-        className={`${isLastStep ? 'bg-StiltzGreen' : 'bg-StiltzGreen'} py-3 px-4 rounded text-sm text-white font-medium sm:text-base`}
+        className={`${isLastStep ? 'bg-HLE1' : 'bg-HLE1'} py-3 px-4 rounded text-sm text-white font-medium sm:text-base`}
       >
         {isLastStep ? 'Get Quote' : 'Next step'}
       </button>

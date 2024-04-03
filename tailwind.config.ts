@@ -10,15 +10,20 @@ const config: Config = {
     extend: {
       colors: {
         white: '#FFFFFF',
-        ['sky-blue']: '#8ea50b', //turned this into stiltz green
+        ['sky-blue']: '#e94040', //turned this into stiltz green
         denim: '#022959',
         StiltzGreen: '#8ea50b',
         stiltzyellow: '#edb000',
         stiltzyellowtrans: 'rgba(237, 176, 0, 0.5)',
         StiltzOrange: '#e56e02',
         StiltzGrey: '#383c3f',
+        HLE1: '#57abff',
+        HLE2: '#e94040',
+        HLE3: 'rgba(233, 64, 64, 0.5)',
+        HLE4: '#e56e02',
+        HLE5: '#383c3f',
         bg: '#EFF5FF',
-        ['light-blue']: '#92ACBE', //turned this into stiltz green
+        ['light-blue']: '#57abff', //turned this into stiltz green
         grey: '#9699AA',
         red: '#EE374A',
         'border-grey': '#D6D9E6',
