@@ -1,10 +1,10 @@
 [
   {
     "name": "1 Floor",
-    "icon": "/images/lift type 2.png"
+    "icon": "/images/houses/two-story.jpg"
   },
   {
     "name": "2 Floors",
-    "icon": "/images/lift type 3.png"
+    "icon": "/images/houses/three-story.jpg"
   }
 ]

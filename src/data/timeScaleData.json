@@ -1,14 +1,14 @@
 [
   {
     "name": "1-6 Months",
-    "icon": "/images/lift type 2.png"
+    "icon": "/images/calendar/6-12.jpg"
   },
   {
     "name": "6-12 Months",
-    "icon": "/images/lift type 3.png"
+    "icon": "/images/calendar/12+.jpg"
   },
   {
     "name": "12+ Months",
-    "icon": "/images/lift type 3.png"
+    "icon": "/images/calendar/Asap.jpg"
   }
 ]
